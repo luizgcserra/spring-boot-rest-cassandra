@@ -1,4 +1,4 @@
-# spring-boot-rest
+# spring-boot-rest-cassandra
 Rest API Spring Boot with Cassandra Database example
 
 This repository aims to show an example of how to implement a REST API using Spring Boot, persisting data in Cassandra Database.
