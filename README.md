@@ -1,4 +1,4 @@
-# spring-boot-rest-cassandra
+# spring-boot-rest
 Rest API Spring Boot with Cassandra Database example
 
 This repository aims to show an example of how to implement a REST API using Spring Boot, persisting data in Cassandra Database.
@@ -16,21 +16,31 @@ To run this example follow these steps:
 ```sql
 CREATE KEYSPACE contoso WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 ```
-9. Create "customer" table in "contoso" keyspace:
+9. Create "beneficiary" table in "contoso" keyspace:
 ```sql
 use contoso;
 
-CREATE TABLE customer(
-   id int PRIMARY KEY,
-   firstname text,
-   lastname text,
-   email text
+CREATE TABLE beneficiary(
+   nisBeneficiario text PRIMARY KEY,
+   uf text,
+   codigoMunicipio text,
+   nomeMunicipio text,
+   codigoFuncao text,
+   codigoSubFuncao text,
+   codigoPrograma text,
+   codigoAcao text,
+   nomeBeneficiario text,
+   fonteFinalidade text,
+   mesReferencia text,
+   valorParcela double,
+   mesCompetencia text,
+   dataSaque text
 );
 ```
     
 10. Optionally, you can create the "email" index to search:
 ```sql
-CREATE INDEX ON contoso.customer (email);
+CREATE INDEX ON contoso.beneficiary (nomeBeneficiario);
 ```
 11. Change environment settings in the "/spring-boot-rest-mysql/src/main/resources/application.properties" file.
 12. Run project into Eclipse IDE or command line: `mvn spring-boot:run`
@@ -55,30 +65,29 @@ Using Apache JMeter to read a CSV file with 200.000 rows containing person attri
 
 Samples: 200.000
 
-Request AVG: 233 ms
+Request AVG: 846 ms
 
-Request MIN: 1 ms
+Request MIN: 3 ms
 
-Request MAX: 3098 ms
+Request MAX: 17926 ms
 
-Thoughput: 3211.1 req/sec
+Thoughput: 1086.3 req/sec
 
-Total Time: 00:01:02
+Total Time: 00:03:03
 
 #### Scenario #2: Retrieve Data (GET)
 
 Samples: 200.000
 
-Request AVG: 385 ms
+Request AVG: 659 ms
 
 Request MIN: 1 ms
 
-Request MAX: 7462 ms
+Request MAX: 16954 ms
 
-Thoughput: 2171.9 req/sec
+Thoughput: 1317.0 req/sec
 
-Total Time: 00:01:31
-
+Total Time: 00:02:31
 
 
 
