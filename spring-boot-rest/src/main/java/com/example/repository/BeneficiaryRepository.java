@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.cassandra.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.contracts.Customer;
+import com.example.contracts.Beneficiary;
 
-public interface CustomerRepository extends CrudRepository<Customer, Integer> {
+public interface BeneficiaryRepository extends CrudRepository<Beneficiary, String> {
 
-	@Query(value="SELECT * FROM customer WHERE email=?0")
-	public List<Customer> findByEmail(String email);
+	@Query(value="SELECT * FROM beneficiary WHERE nomeBeneficiario=?0")
+	public List<Beneficiary> findByName(String name);
 }

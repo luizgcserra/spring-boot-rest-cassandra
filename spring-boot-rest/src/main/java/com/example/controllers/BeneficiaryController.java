@@ -16,45 +16,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.contracts.Customer;
-import com.example.repository.CustomerRepository;
+import com.example.contracts.Beneficiary;
+import com.example.repository.BeneficiaryRepository;
 
 @RestController
-@RequestMapping("/customer")
-public class CustomerController {
+@RequestMapping("/beneficiary")
+public class BeneficiaryController {
 
 	@Autowired
-	private final CustomerRepository customerRepository;
+	private final BeneficiaryRepository beneficiaryRepository;
 
-	public CustomerController(CustomerRepository customerRepository) {
-		this.customerRepository = customerRepository;
+	public BeneficiaryController(BeneficiaryRepository beneficiaryRepository) {
+		this.beneficiaryRepository = beneficiaryRepository;
 	}
 
 	@GetMapping(value = "/{id}", headers = "Accept=application/json")
-	public ResponseEntity<?> getOne(@PathVariable(value = "id") int id) {
-		Customer customer = this.customerRepository.findOne(id);
+	public ResponseEntity<?> getOne(@PathVariable(value = "id") String id) {
+		Beneficiary beneficiary = this.beneficiaryRepository.findOne(id);
 
-		if (customer != null) {
-			return ResponseEntity.ok(customer);
+		if (beneficiary != null) {
+			return ResponseEntity.ok(beneficiary);
 		} else {
 			return ResponseEntity.noContent().build();
 		}
 	}
 
 	@PostMapping(headers = "Accept=application/json")
-	public ResponseEntity<?> add(@RequestBody Customer input) {
-		Customer result = this.customerRepository.save(input);
+	public ResponseEntity<?> add(@RequestBody Beneficiary input) {
+		Beneficiary result = this.beneficiaryRepository.save(input);
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getId())
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getNisBeneficiario())
 				.toUri();
 
 		return ResponseEntity.created(location).build();
 	}
 
 	@PutMapping(headers = "Accept=application/json")
-	public ResponseEntity<?> modify(@RequestBody Customer input) {
-		if (input != null && input.getId() > 0) {
-			this.customerRepository.save(input);
+	public ResponseEntity<?> modify(@RequestBody Beneficiary input) {
+		if (input != null && input.getNisBeneficiario().length() > 0) {
+			this.beneficiaryRepository.save(input);
 
 			return ResponseEntity.ok(input);
 		} else {
@@ -63,9 +63,9 @@ public class CustomerController {
 	}
 
 	@DeleteMapping(value = "/{id}", headers = "Accept=application/json")
-	public ResponseEntity<?> delete(@PathVariable(value = "id") int id) {
-		if (id > 0) {
-			this.customerRepository.delete(id);
+	public ResponseEntity<?> delete(@PathVariable(value = "id") String id) {
+		if (id != null && id.length() > 0) {
+			this.beneficiaryRepository.delete(id);
 
 			return ResponseEntity.ok().build();
 		} else {
@@ -74,11 +74,11 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<?> get(@RequestParam(value = "email", required = false) String email) {
-		if (email != null) {
-			return ResponseEntity.ok(this.customerRepository.findByEmail(email));
+	public ResponseEntity<?> get(@RequestParam(value = "email", required = false) String name) {
+		if (name != null) {
+			return ResponseEntity.ok(this.beneficiaryRepository.findByName(name));
 		} else {
-			return ResponseEntity.ok(this.customerRepository.findAll());
+			return ResponseEntity.ok(this.beneficiaryRepository.findAll());
 		}
 	}
 
