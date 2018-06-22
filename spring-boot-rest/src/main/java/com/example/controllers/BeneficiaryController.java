@@ -86,7 +86,7 @@ public class BeneficiaryController {
 		ModelMapper mapper = new ModelMapper();
 		Type listType = new TypeToken<List<com.example.contracts.Beneficiary>>() {}.getType();
 		
-		if (name != null) {
+		if (nomeBeneficiario != null) {
 			return ResponseEntity.ok(
 					mapper.map(this.beneficiaryRepository.findByName(nomeBeneficiario), listType));
 		} else {
