@@ -1,9 +1,8 @@
 package com.example.contracts;
 
-import org.springframework.data.cassandra.mapping.PrimaryKey;
-import org.springframework.data.cassandra.mapping.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-@Table(value = "beneficiary")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Beneficiary {
 	private String uf;
 	private String codigoMunicipio;
@@ -12,7 +11,6 @@ public class Beneficiary {
 	private String codigoSubFuncao;
 	private String codigoPrograma;
 	private String codigoAcao;
-	@PrimaryKey
 	private String nisBeneficiario;
 	private String nomeBeneficiario;
 	private String fonteFinalidade;

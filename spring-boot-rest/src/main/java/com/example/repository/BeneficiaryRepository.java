@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.cassandra.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.contracts.Beneficiary;
+import com.example.model.Beneficiary;
 
 public interface BeneficiaryRepository extends CrudRepository<Beneficiary, String> {
 
