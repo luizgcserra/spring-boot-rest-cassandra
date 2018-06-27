@@ -21,7 +21,8 @@ CREATE KEYSPACE contoso WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replic
 use contoso;
 
 CREATE TABLE beneficiary(
-   nisBeneficiario text PRIMARY KEY,
+   nisBeneficiario text,
+   mesCompetencia text,
    uf text,
    codigoMunicipio text,
    nomeMunicipio text,
@@ -33,12 +34,11 @@ CREATE TABLE beneficiary(
    fonteFinalidade text,
    mesReferencia text,
    valorParcela double,
-   mesCompetencia text,
-   dataSaque text
-);
+   dataSaque text,
+   PRIMARY KEY((nisBeneficiario), mesCompetencia)) WITH CLUSTERING ORDER BY(mesCompetencia ASC);
 ```
     
-10. Optionally, you can create the "email" index to search:
+10. Optionally, you can create the "nomeBeneficiario" index to search:
 ```sql
 CREATE INDEX ON contoso.beneficiary (nomeBeneficiario);
 ```

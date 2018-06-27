@@ -3,8 +3,14 @@ package com.example.model;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
-@Table(value = "beneficiary")
+@Table(value = Beneficiary.tableName)
 public class Beneficiary {
+
+	@org.springframework.data.annotation.Transient
+	public static final String tableName = "beneficiary";
+
+	@PrimaryKey
+	private BeneficiaryKey key;
 	private String uf;
 	private String codigoMunicipio;
 	private String nomeMunicipio;
@@ -12,37 +18,41 @@ public class Beneficiary {
 	private String codigoSubFuncao;
 	private String codigoPrograma;
 	private String codigoAcao;
-	@PrimaryKey
-	private String nisBeneficiario;
 	private String nomeBeneficiario;
 	private String fonteFinalidade;
 	private String mesReferencia;
 	private double valorParcela;
-	private String mesCompetencia;
 	private String dataSaque;
 
 	public Beneficiary() {
-		
+
 	}
 
-	public Beneficiary(String codigoPrograma, String nisBeneficiario, String nomeMunicipio, String fonteFinalidade,
-			String dataSaque, double valorParcela, String nomeBeneficiario, String mesCompetencia, String codigoFuncao,
-			String mesReferencia, String uf, String codigoMunicipio, String codigoAcao, String codigoSubFuncao) {
+	public Beneficiary(BeneficiaryKey key, String uf, String codigoMunicipio, String nomeMunicipio, String codigoFuncao,
+			String codigoSubFuncao, String codigoPrograma, String codigoAcao, String nomeBeneficiario,
+			String fonteFinalidade, String mesReferencia, double valorParcela, String dataSaque) {
 		super();
-		this.codigoPrograma = codigoPrograma;
-		this.nisBeneficiario = nisBeneficiario;
-		this.nomeMunicipio = nomeMunicipio;
-		this.fonteFinalidade = fonteFinalidade;
-		this.dataSaque = dataSaque;
-		this.valorParcela = valorParcela;
-		this.nomeBeneficiario = nomeBeneficiario;
-		this.mesCompetencia = mesCompetencia;
-		this.codigoFuncao = codigoFuncao;
-		this.mesReferencia = mesReferencia;
+		this.key = key;
 		this.uf = uf;
 		this.codigoMunicipio = codigoMunicipio;
-		this.codigoAcao = codigoAcao;
+		this.nomeMunicipio = nomeMunicipio;
+		this.codigoFuncao = codigoFuncao;
 		this.codigoSubFuncao = codigoSubFuncao;
+		this.codigoPrograma = codigoPrograma;
+		this.codigoAcao = codigoAcao;
+		this.nomeBeneficiario = nomeBeneficiario;
+		this.fonteFinalidade = fonteFinalidade;
+		this.mesReferencia = mesReferencia;
+		this.valorParcela = valorParcela;
+		this.dataSaque = dataSaque;
+	}
+
+	public BeneficiaryKey getKey() {
+		return key;
+	}
+
+	public void setKey(BeneficiaryKey key) {
+		this.key = key;
 	}
 
 	public String getUf() {
@@ -101,14 +111,6 @@ public class Beneficiary {
 		this.codigoAcao = codigoAcao;
 	}
 
-	public String getNisBeneficiario() {
-		return nisBeneficiario;
-	}
-
-	public void setNisBeneficiario(String nisBeneficiario) {
-		this.nisBeneficiario = nisBeneficiario;
-	}
-
 	public String getNomeBeneficiario() {
 		return nomeBeneficiario;
 	}
@@ -141,14 +143,6 @@ public class Beneficiary {
 		this.valorParcela = valorParcela;
 	}
 
-	public String getMesCompetencia() {
-		return mesCompetencia;
-	}
-
-	public void setMesCompetencia(String mesCompetencia) {
-		this.mesCompetencia = mesCompetencia;
-	}
-
 	public String getDataSaque() {
 		return dataSaque;
 	}
@@ -156,6 +150,5 @@ public class Beneficiary {
 	public void setDataSaque(String dataSaque) {
 		this.dataSaque = dataSaque;
 	}
-	
-	
+
 }

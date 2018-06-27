@@ -1,9 +1,13 @@
 package com.example.contracts;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Beneficiary {
+public class Beneficiary implements Serializable {
+	private static final long serialVersionUID = 4749048023807830846L;
+	
 	private String uf;
 	private String codigoMunicipio;
 	private String nomeMunicipio;
